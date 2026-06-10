@@ -3,10 +3,7 @@ const { getWeatherByCity, getWeatherByCoords } = require('../services/weather.se
 
 const router = Router();
 
-/**
- * GET /api/weather?city=Lima
- * Clima por nombre de ciudad.
- */
+
 router.get('/', async (req, res) => {
   const { city } = req.query;
 
@@ -24,10 +21,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-/**
- * GET /api/weather/coords?lat=-12.04&lon=-77.03
- * Clima por coordenadas GPS (útil si tienes la ubicación del usuario).
- */
 router.get('/coords', async (req, res) => {
   const { lat, lon } = req.query;
 
@@ -49,9 +42,6 @@ router.get('/coords', async (req, res) => {
   }
 });
 
-/**
- * Maneja los errores de OpenWeatherMap de forma centralizada.
- */
 function handleWeatherError(err, res) {
   if (err.response) {
     const status = err.response.status;

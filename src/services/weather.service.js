@@ -2,10 +2,7 @@ const axios = require('axios');
 
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
-/**
- * Normaliza la respuesta de OpenWeatherMap a un formato propio,
- * desacoplando tu API del contrato externo.
- */
+
 function formatWeather(data) {
   return {
     city: data.name,
@@ -32,28 +29,18 @@ function formatWeather(data) {
   };
 }
 
-/**
- * Obtiene el clima por nombre de ciudad.
- * @param {string} city  - Nombre de la ciudad (ej: "Lima")
- * @returns {Promise<Object>}
- */
 async function getWeatherByCity(city) {
   const { data } = await axios.get(`${BASE_URL}/weather`, {
     params: {
       q: city,
       appid: process.env.OPENWEATHER_API_KEY,
-      units: 'metric',  // Celsius. Cambia a 'imperial' para Fahrenheit
-      lang: 'es',       // Descripción en español
+      units: 'metric',
+      lang: 'es',
     },
   });
   return formatWeather(data);
 }
 
-/**
- * Obtiene el clima por coordenadas GPS.
- * @param {number} lat
- * @param {number} lon
- */
 async function getWeatherByCoords(lat, lon) {
   const { data } = await axios.get(`${BASE_URL}/weather`, {
     params: {
